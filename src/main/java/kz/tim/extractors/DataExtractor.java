@@ -43,6 +43,7 @@ public class DataExtractor {
      */
     public PartitionData extract() {
         PartitionData result = new PartitionData();
+        result.setPartitionKeys(extractPartitionKeys());
 
         UnfilteredRowIterator iterator = update.unfilteredIterator();
         while (iterator.hasNext()) {
