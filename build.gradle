@@ -1,0 +1,40 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.21'
+    id 'checkstyle'
+}
+
+group 'kz.tim'
+version '1.0'
+
+repositories {
+    mavenCentral()
+
+    maven {
+        url "http://packages.confluent.io/maven"
+    }
+}
+
+dependencies {
+    compile group: 'org.apache.cassandra', name: 'cassandra-all', version: '3.11.5'
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '2.3.1'
+    compile group: 'io.confluent', name: 'kafka-json-serializer', version: '4.0.0'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+checkstyle {
+    toolVersion "8.28"
+}
