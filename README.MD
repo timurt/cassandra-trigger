@@ -4,6 +4,9 @@ Application listens to changes in the *Cassandra*,
 constructs *json* object representing modifications and 
 sends it to the *Kafka*.
 
+- This Cassandra trigger able to detect modifications on different data types: UDT, LIST, MAP, SET, TUPLE, COUNTER and primitives.
+- This Cassandra trigger also can retrieve deleted items from partition update
+
 ### Technologies
 
 - Java 8
@@ -179,7 +182,8 @@ Description of the cell fields:
     - *LIST* - for lists, ex `['abc', 'def', 'abc']`
     - *MAP* - for maps, ex `{1: 'Peter', 2: 'John'}`
     - *SET* - for sets, ex `{1, 2, 3, 4}`
-    - *TUPLE* - for tuple, ex `(3, 'bar', 2.1)`
+    - *TUPLE* - for tuples, ex `(3, 'bar', 2.1)`
+    - *COUNTER* - for counters, ex `100`, `-50`
     - *SIMPLE* - for other primitive types, ex `'Timur'`, `123.42`, `true`, `500`
 - **deletedItems** - set - contains deleted items, can be used only with `SET` and `MAP` cell types:
     - if cell type is *MAP*, then **deletedItems** will contain keys of the deleted objects. 
